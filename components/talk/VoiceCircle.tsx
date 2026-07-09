@@ -23,22 +23,6 @@ export default function VoiceCircle({ status, onMicClick, onStopClick }: VoiceCi
     }
   };
 
-  const getStatusText = () => {
-    switch (status) {
-      case 'idle': return '눌러서 이야기하기';
-      case 'listening': return '듣고 있어요...';
-      case 'stt_processing': return '말씀을 정리하고 있어요...';
-      case 'processing': return '답변을 생각하고 있어요...';
-      case 'speaking': return '이야기하는 중이에요';
-      case 'summary': return '대화가 마무리되었습니다';
-      case 'error': return '오류가 발생했습니다';
-      default: return '';
-    }
-  };
-
-  // Generate radial wave rings for the speaking state
-  const speakingWaveRings = Array.from({ length: 5 }, (_, i) => i);
-
   return (
     <div className="flex flex-col items-center justify-center py-12 relative">
       {/* ── Speaking state: Glowing colorful aura ── */}

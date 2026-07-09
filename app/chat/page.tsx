@@ -57,6 +57,7 @@ export default function ChatPage() {
   // ── Text-to-Speech (TTS) helper using ResponsiveVoice with Fallback ──
   const speakText = (text: string) => {
     return new Promise<void>((resolve) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const rv = (window as any).responsiveVoice;
       
       if (rv && rv.voiceSupport()) {
