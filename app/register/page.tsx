@@ -42,8 +42,26 @@ export default function RegisterPage() {
       await register({ email, password, name });
       router.push('/onboarding');
     } catch (err: unknown) {
-      const errorObj = err as { response?: { data?: { message?: string } } };
-      setError(errorObj.response?.data?.message || '회원가입에 실패했습니다.');
+      console.error('Register error:', err);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const error = err as any;
+
+      if (error.response) {
+        const serverMessage = error.response.data?.message;
+        const status = error.response.status;
+        
+        if (serverMessage) {
+          setError(serverMessage);
+        } else if (status === 409) {
+          setError('이미 가입된 이메일입니다.');
+        } else {
+          setError(`회원가입에 실패했습니다. (오류 코드: ${status})`);
+        }
+      } else if (error.code === 'ERR_NETWORK' || error.message === 'Network Error' || !error.response) {
+        setError('서버와 연결할 수 없습니다. 백엔드 서버가 켜져 있는지 확인해주세요.');
+      } else {
+        setError('알 수 없는 오류가 발생했습니다. 다시 시도해주세요.');
+      }
     } finally {
       setLoading(false);
     }

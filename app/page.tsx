@@ -23,8 +23,30 @@ export default function LoginPage() {
       await login({ email, password });
       router.push('/home');
     } catch (err: unknown) {
-      const e = err as { response?: { data?: { message?: string } } };
-      setError(e.response?.data?.message || '로그인에 실패했습니다.');
+      console.error('Login error:', err);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const error = err as any;
+      
+      if (error.response) {
+        // 서버에서 응답을 보냈으나 에러 상태 코드인 경우
+        const serverMessage = error.response.data?.message;
+        const status = error.response.status;
+        
+        if (serverMessage) {
+          setError(serverMessage);
+        } else if (status === 401) {
+          setError('이메일 또는 비밀번호가 일치하지 않습니다.');
+        } else if (status === 404) {
+          setError('존재하지 않는 계정입니다.');
+        } else {
+          setError(`로그인에 실패했습니다. (오류 코드: ${status})`);
+        }
+      } else if (error.code === 'ERR_NETWORK' || error.message === 'Network Error' || !error.response) {
+        // 서버가 꺼져있거나 네트워크 연결이 안 된 경우
+        setError('서버와 연결할 수 없습니다. 백엔드 서버가 켜져 있는지 확인해주세요.');
+      } else {
+        setError('알 수 없는 오류가 발생했습니다. 다시 시도해주세요.');
+      }
     } finally {
       setLoading(false);
     }
