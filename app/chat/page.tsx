@@ -203,7 +203,7 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="flex flex-col h-full bg-background relative">
+    <div className="flex flex-col bg-background relative" style={{ height: '100%' }}>
       {/* ── Top: back button (left) + save button (right) ── */}
       <div className="absolute top-0 left-0 right-0 z-20 p-4 flex items-center justify-between">
         <button
@@ -318,6 +318,7 @@ export default function ChatPage() {
         className="flex-1 overflow-y-auto scroll-hidden"
         style={{
           scrollSnapType: 'y mandatory',
+          overscrollBehavior: 'contain',
         }}
       >
         {/* ══ Section 1: Voice Circle (fills viewport, centered) ══ */}
@@ -360,10 +361,10 @@ export default function ChatPage() {
           <div className="sticky top-0 z-10 h-12 bg-gradient-to-b from-background to-transparent pointer-events-none" />
 
           {/* Scroll-back-to-mic button */}
-          <div className="sticky top-3 z-10 flex justify-center">
+          <div className="sticky top-14 z-20 flex justify-center">
             <motion.button
               onClick={scrollToMic}
-              className="flex items-center space-x-1.5 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm shadow-sm border border-gray-100 text-gray-500 text-[14px]"
+              className="flex items-center space-x-1.5 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm shadow-md border border-gray-100 text-gray-500 text-[14px]"
               whileTap={{ scale: 0.95 }}
             >
               <ChevronLeft size={16} className="rotate-90" />

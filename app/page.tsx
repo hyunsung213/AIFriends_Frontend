@@ -53,7 +53,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex flex-col h-full items-center justify-center p-6 text-center bg-background overflow-y-auto scroll-hidden">
+    <div className="flex flex-col min-h-full items-center justify-center p-6 text-center bg-background">
       <div className="flex flex-col justify-center items-center w-full mt-10 mb-8">
         <div className="w-24 h-24 bg-primary-light rounded-[2rem] flex items-center justify-center mb-6 shadow-soft">
           <Heart className="text-primary" size={48} strokeWidth={2.5} />

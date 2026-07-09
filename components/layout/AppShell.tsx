@@ -33,7 +33,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     <main className="min-h-[100dvh] h-[100dvh] overflow-hidden bg-background flex items-center justify-center md:py-4 relative">
       <div className="w-full h-[100dvh] md:w-[410px] md:h-[860px] md:max-h-[95dvh] md:rounded-[36px] md:shadow-2xl md:border-[10px] md:border-gray-100 md:overflow-hidden bg-surface relative flex flex-col">
         <GlobalLoader isLoading={isLoading} />
-        <div ref={scrollRef} className={`flex-1 overflow-y-auto scroll-hidden ${showNav ? 'pb-20' : ''}`}>
+        <div ref={scrollRef} className={`flex-1 overflow-y-auto scroll-hidden h-full ${showNav ? 'pb-20' : ''}`}>
           {children}
         </div>
         {showNav && <BottomNav />}
